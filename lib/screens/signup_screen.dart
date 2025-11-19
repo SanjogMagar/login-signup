@@ -1,0 +1,168 @@
+import 'package:flutter/material.dart';
+import 'package:userlogin/screens/forgot_paswword_screen.dart';
+import 'package:userlogin/screens/login_screen.dart';
+
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
+
+  @override
+  State<SignupScreen> createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final formkey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+ final _passwordController = TextEditingController();
+ final _confirmpasswordController = TextEditingController();
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+       appBar: AppBar(
+         backgroundColor: Colors.black,
+        centerTitle: true,
+        iconTheme: const IconThemeData(color: Colors.white),
+        title: Text("Sign Up Page ", style: TextStyle(color: Colors.white), ),
+        
+       ),
+       body: SingleChildScrollView(
+         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+           children: [
+             ClipOval(child: Image.asset("assets/images/notsecure.jpeg",
+            width: 200,
+            height: 200,
+            fit: BoxFit.cover,),
+            ),
+             Padding(
+              
+               padding: const EdgeInsets.all(20),
+               child: Center(
+                 child: Form(
+                  key: formkey ,
+                  child: Column(
+                    children: [
+                      TextFormField(
+                         style: const TextStyle(
+                          color: Colors.white
+                        ),   
+                        controller: _nameController,
+                        decoration: InputDecoration(
+                         prefixIcon: Icon(Icons.person),
+                          labelText: "Name",
+                          hintText: "Enter your Name" ,
+                          hintStyle: TextStyle(color: Colors.white), 
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          )
+                        ),
+                        validator: (value) =>
+                          value!.isEmpty ? "Enter your Name" : null
+                        
+                      ),
+                        SizedBox(height: 20,),
+                      TextFormField(
+                         style: const TextStyle(
+                          color: Colors.white
+                        ),   
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                         prefixIcon: Icon(Icons.email),
+                          labelText: "Email",
+                          hintText: "Enter your email",
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)
+                          )
+                        ),
+                        validator: (value) =>
+                          value!.isEmpty ? "Enter your Email" : null
+                        
+                      ),
+                      
+                      SizedBox(height: 20,),
+                     TextFormField(
+                       style: const TextStyle(
+                          color: Colors.white
+                        ),   
+                        controller: _passwordController,
+                        decoration: InputDecoration(
+                           prefixIcon: Icon(Icons.lock),
+                          labelText: "Password",
+                          hintText: "Enter your password",
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.red, width: 1.5),
+                            borderRadius: BorderRadius.circular(10)
+                            
+                          )
+                        ),
+                        validator: (value) =>
+                          value!.isEmpty ? "Enter your Password" : null
+                        
+                      ),
+                      SizedBox(height: 20,),
+                      TextFormField(
+                         style: const TextStyle(
+                          color: Colors.white
+                        ),   
+                        controller: _confirmpasswordController,
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.lock),
+                          labelText: "Confirm Password",
+                          hintText: "Enter your Confirm password",
+                          
+                          border: OutlineInputBorder(
+                              borderSide: const BorderSide(color: Colors.white, width: 1.5),
+                            borderRadius: BorderRadius.circular(10)
+                          )
+                        ),
+                          obscureText: true,
+                        validator: (value) =>
+                          value != _passwordController.text ? "Password don't match" : null
+                        
+                      ),
+                      SizedBox(height: 20,),
+                      TextButton(onPressed: (){
+                        Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPasswordPage()));
+                      }, child: Text("Forgot Password", style: TextStyle(color: Colors.white),)),
+                      SizedBox(height: 20,),
+                      ElevatedButton(onPressed: (){
+                          if (formkey.currentState!.validate()) {
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                          }
+                      },   child: Text("Sign Up",style: TextStyle(color: const Color.fromARGB(255, 11, 44, 38), fontSize: 20, fontWeight: FontWeight.bold),),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.green,
+                        
+                      )
+                      ),
+             
+                      SizedBox(height: 10,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text("Already an account ? ",  style: TextStyle(color: Colors.white),),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: GestureDetector(onTap: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>LoginScreen()));
+                            }, child: Text("Sign Up", style: TextStyle(color: Colors.white), )),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                  
+                 
+                 ),
+               ),
+             ),
+           ],
+         ),
+       ),
+    );
+  }
+}
